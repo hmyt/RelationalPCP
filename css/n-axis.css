@@ -1,0 +1,102 @@
+/**
+ * PCP
+ */
+#graph {
+  width:99%;
+  height:600px;
+}
+
+/**
+ * results box
+ */
+#grid, #thumbnails { height: 400px; margin-left: 50px; width: 100%; overflow: scroll;resize: both;}
+
+/**
+ * data table
+ */
+.row, .header, .cell { height: 18px; }
+.row, .header { clear: left; }
+.row, .header { clear: left; font-size: 12px; line-height: 18px; height: 18px; }
+.row:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+.header { font-weight: bold; }
+.cell { float: left; overflow: hidden; white-space: nowrap; width: 130px; }
+
+.row {cursor: pointer; }
+.row:nth-child(odd) { background: rgba(0,0,0,0.05); }
+.header { font-weight: bold; }
+
+/**
+ * axis toggling buttons
+ */
+#switch_axis { margin-left: 50px;  width: 100%; font-size: 25pt;}
+#switch_axis div {background-color: #ffff8e; cursor:pointer; display: inline-block; padding: 10px; }
+#switch_axis div:hover { background-color: #ffbf7f; }
+.hide_axis { color: #999; text-decoration: line-through; }
+#switch_axis .outerjoin {
+  position: absolute;
+  z-index: 1;
+  display: none;
+  margin-top: 1.79em;
+  margin-left: -10px;
+  padding: 10px;
+}
+#switch_axis .external_モード {
+  background-color: #d8e698;
+}
+
+
+#switch_axis .external_絞の種類,
+#switch_axis .external_技法_近世,
+#switch_axis .external_近世きもの万華鏡,
+#switch_axis .external_章 {
+  background-color: #f4b3c2;
+}
+#switch_axis .external_分類 {
+  background-color: #fce2c4;
+}
+
+#switch_axis .external_解説文_技法,
+#switch_axis .external_解説文_形式 {
+  background-color: #a0d8ef;
+}
+
+.hide_axis:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+#switch_axis .outerjoin:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+/*num of byobu*/
+
+#num_of_data {
+  font-size: 30pt;
+  font-weight: bold;
+}
+/**
+ * byobu thumbs
+ */
+.byobu_cell {
+  background-color: #FFFFCC;
+  float: left;
+  list-style-type: none;
+  margin: 2px;
+  padding: 8px;
+}
+.byobu_cell .byobu-0 {
+  margin: 0 0 0.2em 0;
+  text-align: center;
+}
+.byobu_cell .byobu-1 a {
+  width: 128px;
+  height: 103px;
+  overflow: hidden;
+  display: block;
+}

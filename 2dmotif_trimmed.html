@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>小袖屏風2軸比較</title>
+	<script src="./js/vendor/jquery/jquery-2.2.4.min.js"></script>
+	<script src="./js/vendor/jquery/jquery.floatThead.min.js"></script>
+	<script src="./js/getImageDir.js"></script>
+	<script src="./js/vendor/URI.js"></script>
+	<script src="./js/2d/2dmain_motif.js"></script>
+	<script src="./js/2d/TableBuilder.js"></script>
+	<script src="./js/2d/TableDirector.js"></script>
+	<script src="./js/2d/Table2DBuilder.js"></script>
+	<script src="./js/2d/Table2DMotifBuilder.js"></script>
+	<script src="./js/2d/Table2D.js"></script>
+	<style type="text/css">
+		#content {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			min-width: 450px;
+			border-collapse: collapse;
+		}
+		.context {
+			background-color: #FFFFCC;
+		}
+
+		.context td{
+			border: 1px #2b5540 dotted;
+		}
+
+		.theader{
+			font-size: 30px;
+			font-weight: bold;
+		}
+
+		#content td {
+			width:100px;
+			table-layout:fixed;
+		}
+
+		img {
+			border: 1px #000 solid;
+			background-color: #fff;
+		}
+
+		#content td.head_col {
+			font-size: 30px;
+			font-weight: bold;
+			width: 3em;
+		}
+
+		#content .tips {
+			padding-bottom: 1em;
+		}
+	</style>
+</head>
+<body>
+<h1>小袖屏風2軸比較-モティーフ強調</h1>
+<h2 id="subtitle"></h2>
+<a href="index.html">一覧表示</a>
+
+<a href="2d.html">2軸比較表示</a>
+<!--
+<form action="motif.php" method="get" >
+	<select name="row">
+		<option value="motif">モティーフ</option>
+		<option value="year">年代</option>
+		<option value="class">分類</option>
+		<option value="color">地色</option>
+	</select>
+<input type="button" value="交換">
+	<select name="col">
+		<option value="motif">モティーフ</option>
+		<option value="year">年代</option>
+		<option value="class">分類</option>
+		<option value="color">地色</option>
+	</select>
+<input type="submit" value="表示">
+</form>
+-->
+<div id="wrapper"></div>
+</body>
+</html>

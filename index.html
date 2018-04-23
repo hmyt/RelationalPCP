@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>List of Kosode Byobu</title>
+	<script src="./js/vendor/jquery/jquery-3.1.1.min.js"></script>
+	<script src="./js/vendor/jquery/jquery-ui.min.js"></script>
+	<!-- <script type="text/javascript" src="./js/vendor/zoomify/ZoomifyImageViewerEnterprise-src.js"></script> -->
+	<script type="text/javascript" src="./js/getImageDir.js"></script>
+	<script type="text/javascript" src="./js/ListView.js"></script>
+	<script type="text/javascript" src="./js/DetailView.js"></script>
+	<script type="text/javascript" src="./js/vendor/URI.js"></script>
+	<script type="text/javascript" src="./js/vendor/openseadragon/openseadragon.min.js"></script>
+		 <!-- <link href="./css/bootstrap/bootstrap.min.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="./css/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="./css/index.css">
+
+	<script type ="text/javascript">
+/* globals $, ListView, getImageDir, DetailView, URI, SortedListView */
+var imageNum
+$(function () {
+/*
+ * 非同期処理関数
+ */
+  function getJsonData (jsonUrl) {
+    return $.ajax({
+      url: jsonUrl,
+      dataType: 'json',
+      beforeSend: function () {
+        $('.loading').removeClass('is-hide')
+      }
+    })
+  }
+  var failed = function (jqXHR, textStatus, errorThrown) {
+    $('.loading').addClass('is-hide')
+    window.alert('Error : ' + errorThrown)
+  }
+
+  // 初期化
+  var hash = window.location.hash
+  changeAjaxPageforHash(hash)
+
+  // hash変更時呼び出し
+  window.onhashchange = function () {
+    hash = window.location.hash
+    changeAjaxPageforHash(hash)
+  }
+
+      // // click時
+      // $("a[href ^= '#']").click(function(){
+      //   hash = $(this).attr("href");
+      //   changeAjaxPageforHash(hash);
+      // });
+
+  function changeAjaxPageforHash (hash) {
+    $('#wrapper').empty()
+    $('#list_sw').empty()
+    var hashArray = {
+      'simple_list': [
+        '#',
+        ''
+      ],
+      'sorted_list': {
+        '#kinsei_kimono': 'list_kinsei_kimono',
+        '#kimono_monyo': 'list_kimono_monyo',
+        '#motif_combination': 'list_motif_combination'
+      }
+    }
+    /**
+    * 一覧表示画面
+    */
+    if ($.inArray(hash, hashArray['simple_list']) >= 0) {
+      var url = './json/json.php?param=list'
+      getJsonData(url).done(function (data) {
+        $('.loading').addClass('is-hide')
+        $('#list_sw').append(
+          $('<span>All</span>')
+        )
+        var list = new ListView('wrapper', getImageDir(window.location.hostname) + '/高精細画像201404/')
+        list.display(data)
+      }).fail(failed)
+    /**
+    * 組合せ付き一覧表示画面
+    */
+    } else if (hash in hashArray['sorted_list']) {
+      var param = hashArray['sorted_list'][hash]
+      var uriParam = URI.parseQuery(URI(window.location.href).query())
+      url = './json/json.php?param=' + param + (uriParam['extend'] === 'on' ? '&extend=on' : '')
+
+      // モティーフ実装ができていないものに関しては、条件をはじく。
+      if (param === 'list_kinsei_kimono' && uriParam['motif'] === 'on' && uriParam['extend'] === 'on') {
+        var uri = URI(window.location.href)
+        uri.removeQuery({'motif': undefined})
+        window.location.href = uri
+      } else {
+        getJsonData(url).done(function (data) {
+          $('.loading').addClass('is-hide')
+          $('#list_sw').append(
+            $('<a href="index.html">All</a>')
+          )
+          var list = new SortedListView('wrapper', getImageDir(window.location.hostname) + '/高精細画像201404/')
+          data['param'] = {'param': param, 'motif': uriParam['motif'], 'extend': uriParam['extend']}
+          list.display(data)
+        }).fail(failed)
+      }
+    /**
+    * 詳細表示画面
+    */
+    // TODO: 端切れと小袖高精細画像表示について、Zoomifyの"58-Set-Callback"と"53-Set-View"あたりを駆使してやってみる
+    //       なお、倍率については 5:3
+    } else {
+      url = './json/json.php?param=detail&id=' + hash.replace(/#/g, '')
+      getJsonData(url).done(function (data) {
+        $('.loading').addClass('is-hide')
+        $('#list_sw').append(
+          $('<a href="index.html">All</a>')
+        )
+        var list = new DetailView('wrapper', getImageDir(window.location.hostname) + '/高精細画像201404/')
+        list.display(data)
+      }).fail(failed)
+    }
+  }
+})
+	</script>
+</head>
+<body>
+	<h1><a href="index.html">List of Kosode Byobu</a></h1>
+	<span id="list_sw">All</span>
+	<a href="2d.html">2D Table View</a>
+	<a href="n-axis_comp.html">Parallel Coordinates View</a>
+	<a href="./zoomify_scrap.html">Scrap View</a>
+	<br>
+	<a href="index.html#kinsei_kimono">An Kaleidoscope of Japanese Early Modern Kimono</a>
+	<a href="index.html#kimono_monyo">Motif View</a>
+	<a href="index.html#motif_combination">Motif Combination View</a>
+	<div id="wrapper" class="cf"></div>
+	<div class="loading">
+		<div class="loading_icon"></div>
+	</div>
+	<!-- <script src="./js/vendor/bootstrap/bootstrap.min.js"></script> -->
+</body>
+</html>

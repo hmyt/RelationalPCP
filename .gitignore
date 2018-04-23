@@ -1,0 +1,7 @@
+node_modules/
+vendor/
+*.lock
+json_ecolog.php
+json_seecon.php
+*.sql
+*.bak

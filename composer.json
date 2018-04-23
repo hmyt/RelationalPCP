@@ -1,0 +1,13 @@
+{
+  "autoload": {
+    "psr-4": {
+      "KosodeModules\\" : "modules/kosode/",
+      "KosodeModules\\DB\\" : "modules/kosode/db/",
+      "KosodeModules\\Motif\\" : "modules/kosode/motif/"
+    }
+  },
+  "require": {
+    "filp/whoops": "^2.1",
+    "ccampbell/chromephp": "4.1.0"
+  }
+}
