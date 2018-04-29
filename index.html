@@ -106,8 +106,7 @@ $(function () {
     /**
     * 詳細表示画面
     */
-    // TODO: 端切れと小袖高精細画像表示について、Zoomifyの"58-Set-Callback"と"53-Set-View"あたりを駆使してやってみる
-    //       なお、倍率については 5:3
+    // 
     } else {
       url = './json/json.php?param=detail&id=' + hash.replace(/#/g, '')
       getJsonData(url).done(function (data) {
